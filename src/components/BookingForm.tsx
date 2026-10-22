@@ -312,7 +312,7 @@ export function BookingForm() {
           id="parentNotes"
           name="parentNotes"
           className="min-h-24"
-          placeholder="أي حاجة تحب تخبرنا فيها عن ابنك: اهتماماته، أيامstudy المفضلة، أو أي سؤال..."
+          placeholder="أي حاجة تحب تخبرنا فيها عن ابنك: اهتماماته، أو أي سؤال..."
           value={form.parentNotes}
           onChange={(e) => set("parentNotes", e.target.value)}
           aria-invalid={!!fieldErrors.parentNotes}
