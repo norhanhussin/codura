@@ -38,6 +38,7 @@
   --color-ring: var(--ring);
   --color-glow: var(--glow);
   --color-aqua: var(--aqua);
+  --color-aqua-strong: var(--aqua-strong);
   --color-whatsapp: var(--whatsapp);
   --color-whatsapp-foreground: var(--whatsapp-foreground);
   --color-chart-1: var(--chart-1);
@@ -68,6 +69,7 @@
   --destructive-foreground: oklch(0.99 0.002 250);
   --glow: oklch(0.56 0.22 298);
   --aqua: oklch(0.76 0.13 212);
+  --aqua-strong: oklch(0.55 0.12 212);
   --whatsapp: oklch(0.72 0.17 156);
   --whatsapp-foreground: oklch(1 0 0);
   --border: oklch(0.92 0.015 258);
@@ -112,6 +114,7 @@
   --destructive-foreground: oklch(0.97 0.008 255);
   --glow: oklch(0.72 0.18 298);
   --aqua: oklch(0.8 0.12 212);
+  --aqua-strong: oklch(0.72 0.12 212);
   --whatsapp: oklch(0.72 0.17 156);
   --whatsapp-foreground: oklch(1 0 0);
   --border: oklch(1 0 0 / 12%);

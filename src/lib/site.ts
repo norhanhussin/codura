@@ -27,3 +27,11 @@ export const site = {
 export function whatsappLink(message: string = site.whatsappGreeting) {
   return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
+
+// TODO(Owner): fill in the subscription packages once confirmed. Leave any
+// value as "" and the site shows "سيتم الإعلان عنه" for it automatically.
+export const pricingPackages = [
+  { name: "", sessions: "", duration: "", price: "", featured: false },
+  { name: "", sessions: "", duration: "", price: "", featured: false },
+  { name: "", sessions: "", duration: "", price: "", featured: false },
+];
