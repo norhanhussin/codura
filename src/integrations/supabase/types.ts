@@ -14,7 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      trial_bookings: {
+        Row: {
+          created_at: string
+          experience_level: string
+          id: string
+          learning_path: string
+          parent_name: string
+          parent_notes: string | null
+          parent_whatsapp: string
+          preferred_day: string | null
+          preferred_time: string | null
+          status: string
+          student_age: number
+        }
+        Insert: {
+          created_at?: string
+          experience_level: string
+          id?: string
+          learning_path: string
+          parent_name: string
+          parent_notes?: string | null
+          parent_whatsapp: string
+          preferred_day?: string | null
+          preferred_time?: string | null
+          status?: string
+          student_age: number
+        }
+        Update: {
+          created_at?: string
+          experience_level?: string
+          id?: string
+          learning_path?: string
+          parent_name?: string
+          parent_notes?: string | null
+          parent_whatsapp?: string
+          preferred_day?: string | null
+          preferred_time?: string | null
+          status?: string
+          student_age?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
