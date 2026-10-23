@@ -347,7 +347,7 @@ function Index() {
         </section>
 
         {/* FAQ */}
-        <section className="py-16 sm:py-20" aria-labelledby="faq-heading">
+        <section id="faq" className="scroll-mt-20 py-16 sm:py-20" aria-labelledby="faq-heading">
           <div className="section-shell max-w-3xl">
             <SectionHeading id="faq-heading" eyebrow="الأسئلة الشائعة" title="أسئلة بتدور في دماغ أهليين؟" />
             <div className="mt-10 space-y-3">
