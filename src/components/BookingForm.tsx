@@ -58,7 +58,7 @@ const EMPTY_FORM: FormState = {
 export function BookingForm() {
   const submitBooking = useServerFn(submitTrialBooking);
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
-  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
   const set = (key: keyof FormState, value: string) => {
@@ -75,16 +75,16 @@ export function BookingForm() {
     e.preventDefault();
     if (status === "submitting") return;
 
-    const errors: Record<string, string> = {};
-    if (!form.studentAge) errors.studentAge = "من فضلك اختر سن الطالب";
-    if (!form.experienceLevel) errors.experienceLevel = "من فضلك اختر مستوى الخبرة";
-    if (!form.learningPath) errors.learningPath = "من فضلك اختر المسار";
+    const errors: Partial<Record<keyof FormState, string>> = {};
+    if (!form.studentAge) errors["studentAge"] = "من فضلك اختر سن الطالب";
+    if (!form.experienceLevel) errors["experienceLevel"] = "من فضلك اختر مستوى الخبرة";
+    if (!form.learningPath) errors["learningPath"] = "من فضلك اختر المسار";
 
     const candidate = { ...form, studentAge: Number(form.studentAge) };
     const parsed = bookingSchema.safeParse(candidate);
     if (!parsed.success) {
       for (const issue of parsed.error.issues) {
-        const key = String(issue.path[0] ?? "");
+        const key = String(issue.path[0] ?? "") as keyof FormState;
         if (key && !errors[key]) errors[key] = issue.message;
       }
     }
