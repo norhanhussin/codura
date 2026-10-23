@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import {
   BellRing,
   Blocks,
@@ -136,16 +136,7 @@ function value(value: string, placeholder = "سيتم الإعلان عنه") {
   return value.trim() ? value : placeholder;
 }
 
-export const Route = createFileRouteForIndex();
-
-function createFileRouteForIndex() {
-  return createIndexRoute();
-}
-
-import { createFileRoute } from "@tanstack/react-router";
-
-function createIndexRoute() {
-  return createFileRoute("/")({
+export const Route = createFileRoute("/")({
     head: () => ({
       meta: [
         {
@@ -167,10 +158,9 @@ function createIndexRoute() {
         },
         { property: "og:type", content: "website" },
       ],
-    }),
-    component: Index,
-  });
-}
+  }),
+  component: Index,
+});
 
 function Index() {
   return (
