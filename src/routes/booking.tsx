@@ -10,16 +10,16 @@ export const Route = createFileRoute("/booking")({
   head: () => ({
     meta: [
       {
-        title: "احجز سيشن تجريبي مجاني | Codura Academy",
+        title: "احجز سيشن تجريبي مجاني | Codura",
       },
       {
         name: "description",
         content:
-          "احجز سيشن تجريبية فردية مجانية أونلاين لابنك من Codura Academy — البرمجة والذكاء الاصطناعي للطلاب من 6 إلى 18 سنة. الفريق بيتواصل معاك على واتساب لتأكيد الوقت.",
+          "احجز سيشن تجريبية فردية مجانية أونلاين لابنك من Codura — البرمجة والذكاء الاصطناعي للطلاب من 6 إلى 18 سنة. الفريق بيتواصل معاك على واتساب لتأكيد الوقت.",
       },
       {
         property: "og:title",
-        content: "احجز سيشن تجريبي مجاني | Codura Academy",
+        content: "احجز سيشن تجريبي مجاني | Codura",
       },
       {
         property: "og:description",
