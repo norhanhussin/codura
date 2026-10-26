@@ -16,10 +16,9 @@ export const site = {
   whatsappGreeting:
     "أهلاً Codura، عايز/عايزة أحجز سيشن تجريبي مجاني لابني/ابنتي.",
 
-  // TODO(Owner): replace with the official page URLs once available.
-  // Leave as "" to show the link as "coming soon" on the site.
-  facebookUrl: "",
-  instagramUrl: "",
+  // Official social pages (username: CoduraCoding).
+  facebookUrl: "https://www.facebook.com/CoduraCoding",
+  instagramUrl: "https://www.instagram.com/CoduraCoding",
 };
 
 export function whatsappLink(message: string = site.whatsappGreeting) {
