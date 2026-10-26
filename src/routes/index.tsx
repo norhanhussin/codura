@@ -76,7 +76,7 @@ const paths: {
     icon: Bot,
     title: "الذكاء الاصطناعي (AI)",
     tagline: "مفاهيم الذكاء الاصطناعي للناشئة",
-    suits: "الطلاب الفضوليين اللي عايزين يفهموا ويتجربوا تقنيات الذكاء الاصطناعي.",
+    suits: "الطلاب الفضوليين اللي عايزين يفهموا ويجربوا تقنيات الذكاء الاصطناعي.",
     learns: [
       "مفاهيم الذكاء الاصطناعي بشكل مناسب للسن",
       "أنشطة وتجارب عملية تفاعلية",
@@ -124,7 +124,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "إزاي أعرف المستوى المناسب لابني؟",
-    a: "مش محتاج تحدد بنفسك — في السيشن التجريبية بنقيم مستوى الطالب واهتماماتنا ونرشحلك أحسن مسار، وممكن تختار \"ساعدوني أختار\" في نموذج الحجز.",
+    a: 'مش محتاج تحدد بنفسك — في السيشن التجريبية بنقيم مستوى الطالب واهتماماته ونرشحلك أحسن مسار، وممكن تختار "ساعدوني أختار" في نموذج الحجز.',
   },
   {
     q: "إزاي بتابع تقدم ابني؟",
@@ -132,32 +132,36 @@ const faqs: { q: string; a: string }[] = [
   },
 ];
 
-function value(value: string, placeholder = "سيتم الإعلان عنه") {
-  return value.trim() ? value : placeholder;
+function value(content: string, placeholder = "سيتم الإعلان عنه") {
+  return content.trim() ? content : placeholder;
 }
 
+const availablePricingPackages = pricingPackages.filter((pkg) =>
+  [pkg.name, pkg.sessions, pkg.duration, pkg.price].some((item) => item.trim()),
+);
+
 export const Route = createFileRoute("/")({
-    head: () => ({
-      meta: [
-        {
-          title: "Codura | خلي ابنك يتعلم البرمجة ويصنع مشروعاته بنفسه",
-        },
-        {
-          name: "description",
-          content:
-            "تعليم البرمجة والذكاء الاصطناعي أونلاين للطلاب من 6 إلى 18 سنة، من خلال سيشنز فردية وتطبيق عملي يناسب مستوى كل طالب. احجز سيشن تجريبي مجاني.",
-        },
-        {
-          property: "og:title",
-          content: "Codura | خلي ابنك يتعلم البرمجة ويصنع مشروعاته بنفسه",
-        },
-        {
-          property: "og:description",
-          content:
-            "تعليم البرمجة والذكاء الاصطناعي أونلاين للطلاب من 6 إلى 18 سنة — احجز سيشن تجريبي مجاني.",
-        },
-        { property: "og:type", content: "website" },
-      ],
+  head: () => ({
+    meta: [
+      {
+        title: "Codura | خلي ابنك يتعلم البرمجة ويصنع مشروعاته بنفسه",
+      },
+      {
+        name: "description",
+        content:
+          "تعليم البرمجة والذكاء الاصطناعي أونلاين للطلاب من 6 إلى 18 سنة، من خلال سيشنز فردية وتطبيق عملي يناسب مستوى كل طالب. احجز سيشن تجريبي مجاني.",
+      },
+      {
+        property: "og:title",
+        content: "Codura | خلي ابنك يتعلم البرمجة ويصنع مشروعاته بنفسه",
+      },
+      {
+        property: "og:description",
+        content:
+          "تعليم البرمجة والذكاء الاصطناعي أونلاين للطلاب من 6 إلى 18 سنة — احجز سيشن تجريبي مجاني.",
+      },
+      { property: "og:type", content: "website" },
+    ],
   }),
   component: Index,
 });
@@ -173,21 +177,26 @@ function Index() {
           <div className="section-shell grid items-center gap-10 py-14 sm:py-20 lg:grid-cols-2">
             <div className="text-center lg:text-start">
               <span className="inline-block rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-bold text-primary">
-                أونلاين لطلاب مصر من 6 لـ 18 سنة
+                أونلاين لطلاب العالم العربي من 6 لـ 18 سنة
               </span>
               <h1 className="mt-5 text-3xl font-black leading-[1.35] sm:text-4xl lg:text-[2.75rem]">
-                خلي ابنك <span className="text-gradient-brand">يتعلم البرمجة</span> ويصنع
-                مشروعاته بنفسه
+                خلي ابنك <span className="text-gradient-brand">يتعلم البرمجة</span> ويصنع مشروعاته
+                بنفسه
               </h1>
               <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground lg:mx-0">
-                تعليم البرمجة والذكاء الاصطناعي أونلاين للطلاب من 6 إلى 18 سنة، من خلال سيشنز
-                فردية وتطبيق عملي يناسب مستوى كل طالب.
+                تعليم البرمجة والذكاء الاصطناعي أونلاين للطلاب من 6 إلى 18 سنة، من خلال سيشنز فردية
+                وتطبيق عملي يناسب مستوى كل طالب.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
                 <Button asChild variant="hero" size="xl">
                   <Link to="/booking">احجز سيشن تجريبي مجاني</Link>
                 </Button>
-                <Button asChild variant="outline" size="xl" className="border-primary/30 bg-background">
+                <Button
+                  asChild
+                  variant="outline"
+                  size="xl"
+                  className="border-primary/30 bg-background"
+                >
                   <a href={whatsappLink()} target="_blank" rel="noreferrer">
                     <MessageCircle /> تواصل معانا على واتساب
                   </a>
@@ -212,7 +221,7 @@ function Index() {
             <SectionHeading
               id="how-heading"
               eyebrow="إزاي بنشتغل"
-              title="ثلاث خطوات وبسيطة وابنك في الطريق"
+              title="ثلاث خطوات بسيطة لبدء رحلة ابنك"
             />
             <div className="mt-10 grid gap-5 sm:grid-cols-3">
               {steps.map((step, i) => (
@@ -233,7 +242,11 @@ function Index() {
         </section>
 
         {/* Learning paths */}
-        <section id="paths" className="scroll-mt-20 bg-gradient-soft py-16 sm:py-20" aria-labelledby="paths-heading">
+        <section
+          id="paths"
+          className="scroll-mt-20 bg-gradient-soft py-16 sm:py-20"
+          aria-labelledby="paths-heading"
+        >
           <div className="section-shell">
             <SectionHeading
               id="paths-heading"
@@ -247,7 +260,9 @@ function Index() {
                   key={path.title}
                   className="flex flex-col rounded-3xl border border-border bg-card p-6 shadow-card transition-transform hover:-translate-y-1"
                 >
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${path.iconClass}`}>
+                  <div
+                    className={`flex h-12 w-12 items-center justify-center rounded-2xl ${path.iconClass}`}
+                  >
                     <path.icon className="h-6 w-6" strokeWidth={2} />
                   </div>
                   <h3 className="mt-4 text-lg font-extrabold">{path.title}</h3>
@@ -292,7 +307,9 @@ function Index() {
                     <benefit.icon className="h-5.5 w-5.5 text-primary" strokeWidth={2} />
                   </div>
                   <h3 className="mt-4 text-base font-extrabold">{benefit.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{benefit.text}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {benefit.text}
+                  </p>
                 </div>
               ))}
             </div>
@@ -300,56 +317,78 @@ function Index() {
         </section>
 
         {/* Pricing */}
-        <section id="pricing" className="scroll-mt-20 bg-gradient-soft py-16 sm:py-20" aria-labelledby="pricing-heading">
+        <section
+          id="pricing"
+          className="scroll-mt-20 bg-gradient-soft py-16 sm:py-20"
+          aria-labelledby="pricing-heading"
+        >
           <div className="section-shell">
             <SectionHeading
               id="pricing-heading"
               eyebrow="الاشتراكات"
               title="باقات الاشتراك"
-              subtitle="بنجهز تفاصيل الباقات النهائية دلوقتي — سيتم الإعلان عنها قريباً."
+              subtitle="للاستفسار عن الاشتراكات، تواصل معانا مباشرة."
             />
-            <div className="mt-10 grid gap-5 md:grid-cols-3">
-              {pricingPackages.map((pkg, i) => (
-                <div
-                  key={i}
-                  className="flex flex-col rounded-3xl border border-border bg-card p-6 shadow-card"
-                >
-                  <h3 className="text-lg font-extrabold">{value(pkg.name, "الباقة (قيد الإعداد)")}</h3>
-                  <dl className="mt-4 space-y-3 text-sm">
-                    <div className="flex items-center justify-between gap-2">
-                      <dt className="text-muted-foreground">عدد السيشنز</dt>
-                      <dd className="font-bold">{value(pkg.sessions)}</dd>
-                    </div>
-                    <div className="flex items-center justify-between gap-2">
-                      <dt className="text-muted-foreground">مدة السيشن</dt>
-                      <dd className="font-bold">{value(pkg.duration)}</dd>
-                    </div>
-                    <div className="flex items-center justify-between gap-2 border-t border-border pt-3">
-                      <dt className="text-muted-foreground">السعر</dt>
-                      <dd className="text-lg font-black text-primary">{value(pkg.price)}</dd>
-                    </div>
-                  </dl>
+            {availablePricingPackages.length > 0 && (
+              <div className="mt-10 grid gap-5 md:grid-cols-3">
+                {availablePricingPackages.map((pkg, index) => (
+                  <div
+                    key={`${pkg.name}-${pkg.sessions}-${pkg.price}-${index}`}
+                    className="flex flex-col rounded-3xl border border-border bg-card p-6 shadow-card"
+                  >
+                    <h3 className="text-lg font-extrabold">{value(pkg.name)}</h3>
+                    <dl className="mt-4 space-y-3 text-sm">
+                      <div className="flex items-center justify-between gap-2">
+                        <dt className="text-muted-foreground">عدد السيشنز</dt>
+                        <dd className="font-bold">{value(pkg.sessions)}</dd>
+                      </div>
+                      <div className="flex items-center justify-between gap-2">
+                        <dt className="text-muted-foreground">مدة السيشن</dt>
+                        <dd className="font-bold">{value(pkg.duration)}</dd>
+                      </div>
+                      <div className="flex items-center justify-between gap-2 border-t border-border pt-3">
+                        <dt className="text-muted-foreground">السعر</dt>
+                        <dd className="text-lg font-black text-primary">{value(pkg.price)}</dd>
+                      </div>
+                    </dl>
+                  </div>
+                ))}
+              </div>
+            )}
+            {availablePricingPackages.length === 0 && (
+              <div className="mx-auto mt-10 max-w-2xl rounded-2xl border border-primary/20 bg-card px-6 py-8 text-center shadow-card sm:px-10">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-whatsapp/10 text-whatsapp">
+                  <MessageCircle className="h-6 w-6" />
                 </div>
-              ))}
-            </div>
-            <p className="mt-6 text-center text-sm text-muted-foreground">
-              عايز تعرف أول ما تتاح الباقات؟{" "}
-              <a
-                href={whatsappLink("أهلاً Codura، حابب أعرف تفاصيل الاشتراكات أول ما تتاح.")}
-                target="_blank"
-                rel="noreferrer"
-                className="font-bold text-primary underline-offset-4 hover:underline"
-              >
-                سجل اهتمامك على واتساب
-              </a>
-            </p>
+                <h3 className="mt-4 text-lg font-extrabold">حابب تعرف تفاصيل الاشتراكات؟</h3>
+                <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
+                  كلمنا على واتساب، وهنجاوبك على استفساراتك ونشاركك التفاصيل المتاحة.
+                </p>
+                <Button
+                  asChild
+                  className="mt-5 bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90"
+                >
+                  <a
+                    href={whatsappLink("أهلاً Codura، حابب أعرف تفاصيل الاشتراكات.")}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <MessageCircle /> اسألنا على واتساب
+                  </a>
+                </Button>
+              </div>
+            )}
           </div>
         </section>
 
         {/* FAQ */}
         <section id="faq" className="scroll-mt-20 py-16 sm:py-20" aria-labelledby="faq-heading">
           <div className="section-shell max-w-3xl">
-            <SectionHeading id="faq-heading" eyebrow="الأسئلة الشائعة" title="أسئلة بتدور في دماغ أهليين؟" />
+            <SectionHeading
+              id="faq-heading"
+              eyebrow="الأسئلة الشائعة"
+              title="أسئلة بتدور في دماغك؟"
+            />
             <div className="mt-10 space-y-3">
               {faqs.map((faq) => (
                 <details
@@ -375,11 +414,14 @@ function Index() {
                 جاهز يبدأ ابنك أول مشروع ليه؟
               </h2>
               <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed opacity-90 sm:text-base">
-                احجز سيشن تجريبية فردية مجانية دلوقتي — هنرشحلك المسار الأنسب لابنك بعد أول
-                لقاء.
+                احجز سيشن تجريبية فردية مجانية دلوقتي — هنرشحلك المسار الأنسب لابنك بعد أول لقاء.
               </p>
               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-                <Button asChild size="xl" className="bg-background text-foreground hover:bg-background/90">
+                <Button
+                  asChild
+                  size="xl"
+                  className="bg-background text-foreground hover:bg-background/90"
+                >
                   <Link to="/booking">احجز سيشن تجريبي مجاني</Link>
                 </Button>
                 <Button
@@ -398,7 +440,11 @@ function Index() {
         </section>
 
         {/* Contact */}
-        <section id="contact" className="scroll-mt-20 border-t border-border/60 bg-card py-16 sm:py-20" aria-labelledby="contact-heading">
+        <section
+          id="contact"
+          className="scroll-mt-20 border-t border-border/60 bg-card py-16 sm:py-20"
+          aria-labelledby="contact-heading"
+        >
           <div className="section-shell text-center">
             <SectionHeading
               id="contact-heading"
@@ -407,7 +453,11 @@ function Index() {
               subtitle="فريقنا جاهز يرد على استفساراتك ويشرحلك كل التفاصيل."
             />
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Button asChild size="lg" className="bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90">
+              <Button
+                asChild
+                size="lg"
+                className="bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90"
+              >
                 <a href={whatsappLink()} target="_blank" rel="noreferrer">
                   <MessageCircle /> واتساب
                 </a>
@@ -463,7 +513,9 @@ function SectionHeading({
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">{subtitle}</p>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+          {subtitle}
+        </p>
       )}
     </div>
   );

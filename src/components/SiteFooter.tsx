@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { site, whatsappLink } from "@/lib/site";
-import logoMark from "@/assets/logo-mark.png";
+import logoMark from "@/assets/logo-mark1.png";
 
 export function SiteFooter() {
   return (
@@ -10,7 +10,9 @@ export function SiteFooter() {
       <div className="section-shell grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-3">
         <div className="space-y-3">
           <div className="flex items-center gap-2.5">
-            <img src={logoMark} alt="" width={36} height={36} className="h-9 w-9 rounded-lg" />
+            <span className="block h-9 w-9 shrink-0 overflow-hidden rounded-lg">
+              <img src={logoMark} alt="" className="block h-full w-full object-cover" />
+            </span>
             <span className="text-base font-extrabold">{site.brandName}</span>
           </div>
           <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
@@ -22,10 +24,31 @@ export function SiteFooter() {
         <nav className="space-y-3" aria-label="روابط سريعة">
           <h3 className="text-sm font-bold">روابط سريعة</h3>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link to="/" className="transition-colors hover:text-primary">الرئيسية</Link></li>
-            <li><a href="/#paths" className="transition-colors hover:text-primary">مسارات التعلم</a></li>
-            <li><a href="/#pricing" className="transition-colors hover:text-primary">الاشتراكات</a></li>
-            <li><Link to="/booking" className="transition-colors hover:text-primary">احجز سيشن تجريبي</Link></li>
+            <li>
+              <Link to="/" className="transition-colors hover:text-primary">
+                الرئيسية
+              </Link>
+            </li>
+            <li>
+              <a href="/#paths" className="transition-colors hover:text-primary">
+                مسارات التعلم
+              </a>
+            </li>
+            <li>
+              <a href="/#pricing" className="transition-colors hover:text-primary">
+                الاشتراكات
+              </a>
+            </li>
+            <li>
+              <Link to="/booking" className="transition-colors hover:text-primary">
+                احجز سيشن تجريبي
+              </Link>
+            </li>
+            <li>
+              <Link to="/privacy" className="transition-colors hover:text-primary">
+                سياسة الخصوصية
+              </Link>
+            </li>
           </ul>
         </nav>
 

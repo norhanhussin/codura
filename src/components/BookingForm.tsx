@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import {
-  AlertTriangle,
-  CheckCircle2,
-  Loader2,
-  MessageCircle,
-} from "lucide-react";
+import { AlertTriangle, CheckCircle2, Loader2, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -30,7 +25,16 @@ import {
 import { whatsappLink } from "@/lib/site";
 
 const AGES = Array.from({ length: 13 }, (_, i) => i + 6);
-const DAYS = ["السبت", "الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "أي يوم مناسب"];
+const DAYS = [
+  "السبت",
+  "الأحد",
+  "الاثنين",
+  "الثلاثاء",
+  "الأربعاء",
+  "الخميس",
+  "الجمعة",
+  "أي يوم مناسب",
+];
 const TIMES = ["صباحاً", "بعد الظهر", "مساءً", "أي وقت مناسب"];
 
 type FormState = {
@@ -90,6 +94,22 @@ export function BookingForm() {
     }
     if (Object.keys(errors).length > 0) {
       setFieldErrors(errors);
+      const fieldOrder: (keyof FormState)[] = [
+        "parentName",
+        "parentWhatsapp",
+        "studentAge",
+        "experienceLevel",
+        "learningPath",
+        "preferredDay",
+        "preferredTime",
+        "parentNotes",
+      ];
+      const firstInvalidField = fieldOrder.find((key) => errors[key]);
+      const focusTargetId =
+        firstInvalidField === "experienceLevel" ? "exp-beginner" : firstInvalidField;
+      if (focusTargetId) {
+        requestAnimationFrame(() => document.getElementById(focusTargetId)?.focus());
+      }
       return;
     }
 
@@ -114,8 +134,8 @@ export function BookingForm() {
         </div>
         <h2 className="mt-5 text-2xl font-extrabold">تم استلام طلبك بنجاح 🎉</h2>
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-          شكراً لثقتك في {`Codura`}! فريقنا هيتواصل معاك على واتساب على الرقم اللي سجلته
-          لتأكيد الوقت المتاح المناسب للسيشن التجريبية المجانية.
+          شكراً لثقتك في {`Codura`}! فريقنا هيتواصل معاك على واتساب على الرقم اللي سجلته لتأكيد
+          الوقت المتاح المناسب للسيشن التجريبية المجانية.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Button asChild className="bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90">
@@ -137,6 +157,21 @@ export function BookingForm() {
       noValidate
       className="space-y-6 rounded-3xl border border-border bg-card p-6 shadow-card sm:p-8"
     >
+      {Object.keys(fieldErrors).length > 0 && (
+        <div
+          role="alert"
+          aria-live="assertive"
+          className="rounded-xl border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive"
+        >
+          <p className="font-bold">راجع البيانات التالية قبل إرسال الطلب:</p>
+          <ul className="mt-2 list-inside list-disc space-y-1">
+            {Object.entries(fieldErrors).map(([key, message]) => (
+              <li key={key}>{message}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {status === "error" && (
         <div
           role="alert"
@@ -173,9 +208,12 @@ export function BookingForm() {
           value={form.parentName}
           onChange={(e) => set("parentName", e.target.value)}
           aria-invalid={!!fieldErrors.parentName}
+          aria-describedby={fieldErrors.parentName ? "parentName-error" : undefined}
         />
         {fieldErrors.parentName && (
-          <p className="text-xs font-semibold text-destructive">{fieldErrors.parentName}</p>
+          <p id="parentName-error" className="text-xs font-semibold text-destructive">
+            {fieldErrors.parentName}
+          </p>
         )}
       </div>
 
@@ -190,16 +228,21 @@ export function BookingForm() {
           autoComplete="tel"
           dir="ltr"
           className="h-11 text-right"
-          placeholder="201001234567"
+          placeholder="+966 50 123 4567"
           value={form.parentWhatsapp}
           onChange={(e) => set("parentWhatsapp", e.target.value)}
           aria-invalid={!!fieldErrors.parentWhatsapp}
+          aria-describedby={
+            fieldErrors.parentWhatsapp ? "parentWhatsapp-error" : "parentWhatsapp-hint"
+          }
         />
         {fieldErrors.parentWhatsapp ? (
-          <p className="text-xs font-semibold text-destructive">{fieldErrors.parentWhatsapp}</p>
+          <p id="parentWhatsapp-error" className="text-xs font-semibold text-destructive">
+            {fieldErrors.parentWhatsapp}
+          </p>
         ) : (
-          <p className="text-xs text-muted-foreground">
-            بالكود الدولي بدون + أو مسافات، مثال: 201001234567
+          <p id="parentWhatsapp-hint" className="text-xs text-muted-foreground">
+            اكتب الرقم بالصيغة الدولية مع + ومفتاح الدولة، مثل +20 أو +966.
           </p>
         )}
       </div>
@@ -208,7 +251,12 @@ export function BookingForm() {
       <div className="space-y-2">
         <Label htmlFor="studentAge">سن الطالب *</Label>
         <Select value={form.studentAge} onValueChange={(v) => set("studentAge", v)}>
-          <SelectTrigger id="studentAge" className="h-11 w-full">
+          <SelectTrigger
+            id="studentAge"
+            className="h-11 w-full"
+            aria-invalid={!!fieldErrors.studentAge}
+            aria-describedby={fieldErrors.studentAge ? "studentAge-error" : undefined}
+          >
             <SelectValue placeholder="اختر السن (من 6 لـ 18 سنة)" />
           </SelectTrigger>
           <SelectContent>
@@ -220,14 +268,19 @@ export function BookingForm() {
           </SelectContent>
         </Select>
         {fieldErrors.studentAge && (
-          <p className="text-xs font-semibold text-destructive">{fieldErrors.studentAge}</p>
+          <p id="studentAge-error" className="text-xs font-semibold text-destructive">
+            {fieldErrors.studentAge}
+          </p>
         )}
       </div>
 
       {/* الخبرة السابقة */}
       <div className="space-y-2">
-        <Label>الخبرة السابقة في البرمجة *</Label>
+        <Label id="experienceLevel-label">الخبرة السابقة في البرمجة *</Label>
         <RadioGroup
+          aria-labelledby="experienceLevel-label"
+          aria-invalid={!!fieldErrors.experienceLevel}
+          aria-describedby={fieldErrors.experienceLevel ? "experienceLevel-error" : undefined}
           value={form.experienceLevel}
           onValueChange={(v) => set("experienceLevel", v)}
           className="grid gap-3 sm:grid-cols-3"
@@ -244,7 +297,9 @@ export function BookingForm() {
           ))}
         </RadioGroup>
         {fieldErrors.experienceLevel && (
-          <p className="text-xs font-semibold text-destructive">{fieldErrors.experienceLevel}</p>
+          <p id="experienceLevel-error" className="text-xs font-semibold text-destructive">
+            {fieldErrors.experienceLevel}
+          </p>
         )}
       </div>
 
@@ -252,7 +307,12 @@ export function BookingForm() {
       <div className="space-y-2">
         <Label htmlFor="learningPath">المسار المفضل *</Label>
         <Select value={form.learningPath} onValueChange={(v) => set("learningPath", v)}>
-          <SelectTrigger id="learningPath" className="h-11 w-full">
+          <SelectTrigger
+            id="learningPath"
+            className="h-11 w-full"
+            aria-invalid={!!fieldErrors.learningPath}
+            aria-describedby={fieldErrors.learningPath ? "learningPath-error" : undefined}
+          >
             <SelectValue placeholder="اختر المسار" />
           </SelectTrigger>
           <SelectContent>
@@ -264,7 +324,9 @@ export function BookingForm() {
           </SelectContent>
         </Select>
         {fieldErrors.learningPath && (
-          <p className="text-xs font-semibold text-destructive">{fieldErrors.learningPath}</p>
+          <p id="learningPath-error" className="text-xs font-semibold text-destructive">
+            {fieldErrors.learningPath}
+          </p>
         )}
       </div>
 
@@ -273,7 +335,12 @@ export function BookingForm() {
         <div className="space-y-2">
           <Label htmlFor="preferredDay">اليوم المفضل (اختياري)</Label>
           <Select value={form.preferredDay} onValueChange={(v) => set("preferredDay", v)}>
-            <SelectTrigger id="preferredDay" className="h-11 w-full">
+            <SelectTrigger
+              id="preferredDay"
+              className="h-11 w-full"
+              aria-invalid={!!fieldErrors.preferredDay}
+              aria-describedby={fieldErrors.preferredDay ? "preferredDay-error" : undefined}
+            >
               <SelectValue placeholder="اختر اليوم" />
             </SelectTrigger>
             <SelectContent>
@@ -284,11 +351,21 @@ export function BookingForm() {
               ))}
             </SelectContent>
           </Select>
+          {fieldErrors.preferredDay && (
+            <p id="preferredDay-error" className="text-xs font-semibold text-destructive">
+              {fieldErrors.preferredDay}
+            </p>
+          )}
         </div>
         <div className="space-y-2">
           <Label htmlFor="preferredTime">الوقت المفضل (اختياري)</Label>
           <Select value={form.preferredTime} onValueChange={(v) => set("preferredTime", v)}>
-            <SelectTrigger id="preferredTime" className="h-11 w-full">
+            <SelectTrigger
+              id="preferredTime"
+              className="h-11 w-full"
+              aria-invalid={!!fieldErrors.preferredTime}
+              aria-describedby={fieldErrors.preferredTime ? "preferredTime-error" : undefined}
+            >
               <SelectValue placeholder="اختر الوقت" />
             </SelectTrigger>
             <SelectContent>
@@ -299,9 +376,15 @@ export function BookingForm() {
               ))}
             </SelectContent>
           </Select>
-          <p className="text-xs text-muted-foreground">
-            بنسجل تفضيلاتك ونؤكد الوقت المتاح معاك على واتساب.
-          </p>
+          {fieldErrors.preferredTime ? (
+            <p id="preferredTime-error" className="text-xs font-semibold text-destructive">
+              {fieldErrors.preferredTime}
+            </p>
+          ) : (
+            <p className="text-xs text-muted-foreground">
+              بنسجل تفضيلاتك ونؤكد الوقت المتاح معاك على واتساب.
+            </p>
+          )}
         </div>
       </div>
 
@@ -316,13 +399,22 @@ export function BookingForm() {
           value={form.parentNotes}
           onChange={(e) => set("parentNotes", e.target.value)}
           aria-invalid={!!fieldErrors.parentNotes}
+          aria-describedby={fieldErrors.parentNotes ? "parentNotes-error" : undefined}
         />
         {fieldErrors.parentNotes && (
-          <p className="text-xs font-semibold text-destructive">{fieldErrors.parentNotes}</p>
+          <p id="parentNotes-error" className="text-xs font-semibold text-destructive">
+            {fieldErrors.parentNotes}
+          </p>
         )}
       </div>
 
-      <Button type="submit" variant="hero" size="xl" className="w-full" disabled={status === "submitting"}>
+      <Button
+        type="submit"
+        variant="hero"
+        size="xl"
+        className="w-full"
+        disabled={status === "submitting"}
+      >
         {status === "submitting" ? (
           <>
             <Loader2 className="animate-spin" /> جاري الإرسال...
@@ -333,7 +425,10 @@ export function BookingForm() {
       </Button>
 
       <p className="text-center text-xs text-muted-foreground">
-        بياناتك بتُستخدم فقط للتواصل معاك لتأكيد السيشن — ولن يتم نشرها أو مشاركتها مع أي طرف آخر.
+        بياناتك بتُستخدم فقط للتواصل معاك لتأكيد السيشن، ولن يتم نشرها أو مشاركتها مع أي طرف آخر.{" "}
+        <Link to="/privacy" className="font-bold text-primary underline-offset-4 hover:underline">
+          سياسة الخصوصية
+        </Link>
       </p>
     </form>
   );

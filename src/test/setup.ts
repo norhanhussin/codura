@@ -1,5 +1,17 @@
 import "@testing-library/jest-dom/vitest";
 
+globalThis.ResizeObserver = class implements ResizeObserver {
+  constructor(callback: ResizeObserverCallback) {
+    void callback;
+  }
+
+  observe(_target: Element) {}
+  unobserve(_target: Element) {}
+  disconnect() {}
+};
+
+Element.prototype.scrollIntoView = () => {};
+
 Object.defineProperty(window, "scrollTo", {
   writable: true,
   value: () => {},

@@ -4,7 +4,7 @@ import { bookingSchema } from "@/lib/booking-schema";
 
 const validBooking = {
   parentName: "أم أحمد",
-  parentWhatsapp: "201001234567",
+  parentWhatsapp: "+201001234567",
   studentAge: 9,
   experienceLevel: "beginner",
   learningPath: "scratch",
@@ -12,7 +12,25 @@ const validBooking = {
 
 describe("Trial booking validation", () => {
   it("accepts a valid booking", () => {
-    expect(bookingSchema.safeParse(validBooking).success).toBe(true);
+    const result = bookingSchema.safeParse(validBooking);
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.data.parentWhatsapp).toBe("+201001234567");
+  });
+
+  it.each(["+966501234567", "+971501234567", "+212612345678"])(
+    "accepts a valid international phone number: %s",
+    (parentWhatsapp) => {
+      expect(bookingSchema.safeParse({ ...validBooking, parentWhatsapp }).success).toBe(true);
+    },
+  );
+
+  it("normalizes international phone formatting", () => {
+    const result = bookingSchema.safeParse({
+      ...validBooking,
+      parentWhatsapp: "+966 50-123-4567",
+    });
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.data.parentWhatsapp).toBe("+966501234567");
   });
 
   it("rejects student ages outside 6–18", () => {
@@ -23,6 +41,9 @@ describe("Trial booking validation", () => {
   it("rejects a WhatsApp number that is not a phone number", () => {
     expect(bookingSchema.safeParse({ ...validBooking, parentWhatsapp: "abc" }).success).toBe(false);
     expect(bookingSchema.safeParse({ ...validBooking, parentWhatsapp: "12" }).success).toBe(false);
+    expect(
+      bookingSchema.safeParse({ ...validBooking, parentWhatsapp: "201001234567" }).success,
+    ).toBe(false);
   });
 
   it("requires a parent name", () => {

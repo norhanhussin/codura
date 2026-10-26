@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { parsePhoneNumberFromString } from "libphonenumber-js/min";
 
 export const EXPERIENCE_LEVELS = ["beginner", "some_experience", "experienced"] as const;
 export const LEARNING_PATHS = ["scratch", "python", "ai", "help_me_choose"] as const;
@@ -17,15 +18,15 @@ export const learningPathLabels: Record<(typeof LEARNING_PATHS)[number], string>
 };
 
 export const bookingSchema = z.object({
-  parentName: z
-    .string()
-    .trim()
-    .min(2, "من فضلك اكتب اسم ولي الأمر")
-    .max(120, "الاسم طويل جداً"),
+  parentName: z.string().trim().min(2, "من فضلك اكتب اسم ولي الأمر").max(120, "الاسم طويل جداً"),
   parentWhatsapp: z
     .string()
     .trim()
-    .regex(/^\+?[0-9][0-9\s-]{7,14}$/, "من فضلك اكتب رقم واتساب صحيح (مثال: 201001234567)"),
+    .refine(
+      (value) => value.startsWith("+") && Boolean(parsePhoneNumberFromString(value)?.isValid()),
+      "اكتب رقم واتساب صحيحًا مع + ومفتاح الدولة، مثال: +20 أو +966",
+    )
+    .transform((value) => parsePhoneNumberFromString(value)!.number),
   studentAge: z.coerce
     .number({ invalid_type_error: "من فضلك اختر سن الطالب" })
     .int()

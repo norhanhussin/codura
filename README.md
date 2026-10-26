@@ -24,3 +24,20 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+## Local environment
+
+Trial-booking submissions require these server-side environment variables:
+
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+
+Set them in your local environment or an untracked `.env` file before starting the app. Never add the service-role key to client code or expose it through a `VITE_` variable. The service-role client is used only by the server booking handler.
+
+## Checks
+
+```sh
+npm test
+npm run lint
+npm run build
+```
