@@ -74,6 +74,6 @@ describe("Trial booking form", () => {
       await screen.findByRole("heading", { name: /تم استلام طلبك بنجاح/ }),
     ).toBeInTheDocument();
     expect(submitMock).toHaveBeenCalledTimes(1);
-    expect(submitMock.mock.calls[0][0].data.parentWhatsapp).toBe("+966501234567");
+    expect(submitMock.mock.calls[0]?.[0]?.data.parentWhatsapp).toBe("+966501234567");
   });
 });

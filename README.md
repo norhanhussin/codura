@@ -27,12 +27,13 @@ npm run dev
 
 ## Local environment
 
-Trial-booking submissions require these server-side environment variables:
+Copy `.env.example` to `.env` and set the new Supabase project's URL and publishable key in all four variables shown there. The `VITE_` variables are used by browser code; the non-`VITE_` variables are used by the server booking handler. The publishable key is designed for client use and is not a secret. Never put a service-role or secret key in a `VITE_` variable or browser code.
 
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
+Before booking submissions can be stored, review and run `supabase/trial_bookings_setup.sql` in the new project's Supabase SQL Editor. It creates `trial_bookings` if absent, keeps direct table access closed with RLS, and grants the anonymous role access only to a validated insert function. The application still validates each booking in its server function.
 
-Set them in your local environment or an untracked `.env` file before starting the app. Never add the service-role key to client code or expose it through a `VITE_` variable. The service-role client is used only by the server booking handler.
+If the base booking setup was already applied before adding the web learning path, review and run `supabase/add_web_learning_path.sql` in the same project's SQL Editor. This updates the allowed learning-path value in both the table constraint and booking RPC without removing existing bookings.
+
+For deployment, configure the `VITE_` variables in the hosting platform's build environment and `SUPABASE_URL` plus `SUPABASE_PUBLISHABLE_KEY` in its server runtime environment. A local `.env` file is not uploaded automatically. This repository targets a Cloudflare Nitro build through the Lovable Vite config; the exact dashboard for the current `lovable.app` deployment is managed outside this repository and must be confirmed in the hosting project.
 
 ## Checks
 

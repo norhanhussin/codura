@@ -17,6 +17,10 @@ describe("Trial booking validation", () => {
     if (result.success) expect(result.data.parentWhatsapp).toBe("+201001234567");
   });
 
+  it("accepts web development as a learning path", () => {
+    expect(bookingSchema.safeParse({ ...validBooking, learningPath: "web" }).success).toBe(true);
+  });
+
   it.each(["+966501234567", "+971501234567", "+212612345678"])(
     "accepts a valid international phone number: %s",
     (parentWhatsapp) => {
