@@ -114,7 +114,7 @@ export function BookingForm() {
         </div>
         <h2 className="mt-5 text-2xl font-extrabold">تم استلام طلبك بنجاح 🎉</h2>
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-          شكراً لثقتك في {`Codura Academy`}! فريقنا هيتواصل معاك على واتساب على الرقم اللي سجلته
+          شكراً لثقتك في {`Codura`}! فريقنا هيتواصل معاك على واتساب على الرقم اللي سجلته
           لتأكيد الوقت المتاح المناسب للسيشن التجريبية المجانية.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">

@@ -140,7 +140,7 @@ export const Route = createFileRoute("/")({
     head: () => ({
       meta: [
         {
-          title: "Codura Academy | خلي ابنك يتعلم البرمجة ويصنع مشروعاته بنفسه",
+          title: "Codura | خلي ابنك يتعلم البرمجة ويصنع مشروعاته بنفسه",
         },
         {
           name: "description",
@@ -149,7 +149,7 @@ export const Route = createFileRoute("/")({
         },
         {
           property: "og:title",
-          content: "Codura Academy | خلي ابنك يتعلم البرمجة ويصنع مشروعاته بنفسه",
+          content: "Codura | خلي ابنك يتعلم البرمجة ويصنع مشروعاته بنفسه",
         },
         {
           property: "og:description",
@@ -335,7 +335,7 @@ function Index() {
             <p className="mt-6 text-center text-sm text-muted-foreground">
               عايز تعرف أول ما تتاح الباقات؟{" "}
               <a
-                href={whatsappLink("أهلاً Codura Academy، حابب أعرف تفاصيل الاشتراكات أول ما تتاح.")}
+                href={whatsappLink("أهلاً Codura، حابب أعرف تفاصيل الاشتراكات أول ما تتاح.")}
                 target="_blank"
                 rel="noreferrer"
                 className="font-bold text-primary underline-offset-4 hover:underline"
