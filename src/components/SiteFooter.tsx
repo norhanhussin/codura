@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { site, whatsappLink } from "@/lib/site";
-import logoMark from "@/assets/logo-mark1.png";
+import logoMark from "@/assets/logo-mark.jpg";
 
 export function SiteFooter() {
   return (

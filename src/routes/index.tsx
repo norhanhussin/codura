@@ -21,7 +21,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { site, whatsappLink, pricingPackages } from "@/lib/site";
-import heroIllustration from "@/assets/hero-illustration.png";
+import heroIllustration from "@/assets/hero-illustration-optimized.jpg";
 
 const steps: { icon: LucideIcon; title: string; text: string }[] = [
   {
@@ -220,9 +220,11 @@ function Index() {
               <img
                 src={heroIllustration}
                 alt="طلاب يتعلمون البرمجة والذكاء الاصطناعي أونلاين"
-                width={1440}
+                width={1024}
                 height={1024}
                 className="mx-auto w-full max-w-lg rounded-3xl shadow-card lg:max-w-none"
+                fetchPriority="high"
+                decoding="async"
               />
             </div>
           </div>
