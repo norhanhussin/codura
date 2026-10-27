@@ -1,6 +1,7 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import {
   BellRing,
+  BarChart3,
   Blocks,
   Bot,
   CalendarCheck,
@@ -70,6 +71,18 @@ const paths: {
       "أساسيات البرمجة والمتغيرات والدوال",
       "حل المسائل والتفكير الخوارزمي",
       "مشاريع عملية يصنعها الطالب بنفسه",
+    ],
+    iconClass: "bg-glow/10 text-glow",
+  },
+  {
+    icon: BarChart3,
+    title: "تحليل البيانات (Data Analysis)",
+    tagline: "فهم البيانات واستخلاص النتائج منها",
+    suits: "الطلاب المهتمين باكتشاف الأنماط وتحويل الأرقام إلى معلومات مفيدة.",
+    learns: [
+      "تنظيم البيانات وقراءتها",
+      "تمثيل البيانات في رسوم بيانية واضحة",
+      "استخلاص نتائج من بيانات ومشاريع بسيطة",
     ],
     iconClass: "bg-glow/10 text-glow",
   },
@@ -273,31 +286,39 @@ function Index() {
               {paths.map((path) => (
                 <div
                   key={path.title}
-                  className="flex flex-col rounded-3xl border border-border bg-card p-6 shadow-card transition-transform hover:-translate-y-1"
+                  className="flex min-w-0 flex-col rounded-3xl border border-border bg-card p-6 shadow-card transition-transform hover:-translate-y-1"
                 >
                   <div
                     className={`flex h-12 w-12 items-center justify-center rounded-2xl ${path.iconClass}`}
                   >
                     <path.icon className="h-6 w-6" strokeWidth={2} />
                   </div>
-                  <h3 className="mt-4 text-lg font-extrabold">{path.title}</h3>
-                  <p className="mt-1 text-sm font-semibold text-muted-foreground">{path.tagline}</p>
-                  <p className="mt-4 text-sm leading-relaxed">
+                  <h3 className="mt-4 break-words text-lg font-extrabold">{path.title}</h3>
+                  <p className="mt-1 break-words text-sm font-semibold text-muted-foreground">
+                    {path.tagline}
+                  </p>
+                  <p className="mt-4 break-words text-sm leading-relaxed">
                     <span className="font-bold">يناسب: </span>
                     <span className="text-muted-foreground">{path.suits}</span>
                   </p>
                   <p className="mt-3 text-sm font-bold">هتتعلم:</p>
                   <ul className="mt-1.5 space-y-1.5 text-sm text-muted-foreground">
                     {path.learns.map((item) => (
-                      <li key={item} className="flex items-start gap-2">
+                      <li key={item} className="flex min-w-0 items-start gap-2 break-words">
                         <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-aqua-strong" />
                         {item}
                       </li>
                     ))}
                   </ul>
-                  <Button asChild variant="hero" className="mt-6 w-full">
-                    <Link to="/booking">احجز سيشن تجريبي</Link>
-                  </Button>
+                  <div className="mt-auto pt-6">
+                    <Button
+                      asChild
+                      variant="hero"
+                      className="h-auto min-h-11 w-full whitespace-normal px-3 py-2 text-center leading-snug"
+                    >
+                      <Link to="/booking">احجز سيشن تجريبي</Link>
+                    </Button>
+                  </div>
                 </div>
               ))}
             </div>
