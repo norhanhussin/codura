@@ -4,7 +4,7 @@ CREATE TABLE public.trial_bookings (
   parent_whatsapp text NOT NULL,
   student_age integer NOT NULL CHECK (student_age BETWEEN 6 AND 18),
   experience_level text NOT NULL CHECK (experience_level IN ('beginner', 'some_experience', 'experienced')),
-  learning_path text NOT NULL CHECK (learning_path IN ('scratch', 'python', 'ai', 'help_me_choose')),
+  learning_path text NOT NULL CHECK (learning_path IN ('scratch', 'python', 'ai', 'web', 'help_me_choose')),
   preferred_day text,
   preferred_time text,
   parent_notes text,
