@@ -31,7 +31,7 @@ Copy `.env.example` to `.env` and set the new Supabase project's URL and publish
 
 Before booking submissions can be stored, review and run `supabase/trial_bookings_setup.sql` in the new project's Supabase SQL Editor. It creates `trial_bookings` if absent, keeps direct table access closed with RLS, and grants the anonymous role access only to a validated insert function. The application still validates each booking in its server function.
 
-If the base booking setup was already applied before adding the web learning path, review and run `supabase/add_web_learning_path.sql` in the same project's SQL Editor. This updates the allowed learning-path value in both the table constraint and booking RPC without removing existing bookings.
+If the base booking setup was already applied before adding the web or data-analysis learning paths, review and run `supabase/add_web_learning_path.sql` in the same project's SQL Editor. This updates the allowed learning-path values in both the table constraint and booking RPC without removing existing bookings.
 
 For deployment, configure the `VITE_` variables in the hosting platform's build environment and `SUPABASE_URL` plus `SUPABASE_PUBLISHABLE_KEY` in its server runtime environment. A local `.env` file is not uploaded automatically. This repository targets a Cloudflare Nitro build through the Lovable Vite config; the exact dashboard for the current `lovable.app` deployment is managed outside this repository and must be confirmed in the hosting project.
 

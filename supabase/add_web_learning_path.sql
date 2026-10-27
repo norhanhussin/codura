@@ -1,5 +1,5 @@
--- Review and run in the NEW Supabase project's SQL Editor after the base
--- trial-booking setup. This preserves existing booking rows.
+-- Run in the Supabase project's SQL Editor after the base trial-booking setup
+-- to enable web and data-analysis paths. This preserves existing booking rows.
 
 begin;
 
@@ -8,7 +8,7 @@ alter table public.trial_bookings
 
 alter table public.trial_bookings
   add constraint trial_bookings_learning_path_check
-  check (learning_path in ('scratch', 'python', 'ai', 'web', 'help_me_choose'));
+  check (learning_path in ('scratch', 'python', 'ai', 'web', 'data_analysis', 'help_me_choose'));
 
 create or replace function public.submit_trial_booking(
   p_parent_name text,
@@ -42,7 +42,7 @@ begin
     raise exception 'Invalid booking data' using errcode = '22023';
   end if;
 
-  if p_learning_path is null or p_learning_path not in ('scratch', 'python', 'ai', 'web', 'help_me_choose') then
+  if p_learning_path is null or p_learning_path not in ('scratch', 'python', 'ai', 'web', 'data_analysis', 'help_me_choose') then
     raise exception 'Invalid booking data' using errcode = '22023';
   end if;
 

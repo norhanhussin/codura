@@ -2,7 +2,14 @@ import { z } from "zod";
 import { parsePhoneNumberFromString } from "libphonenumber-js/min";
 
 export const EXPERIENCE_LEVELS = ["beginner", "some_experience", "experienced"] as const;
-export const LEARNING_PATHS = ["scratch", "python", "ai", "web", "help_me_choose"] as const;
+export const LEARNING_PATHS = [
+  "scratch",
+  "python",
+  "ai",
+  "web",
+  "data_analysis",
+  "help_me_choose",
+] as const;
 
 export const experienceLabels: Record<(typeof EXPERIENCE_LEVELS)[number], string> = {
   beginner: "مبتدئ — لم يبرمج قبل كده",
@@ -15,6 +22,7 @@ export const learningPathLabels: Record<(typeof LEARNING_PATHS)[number], string>
   python: "بايثون (Python)",
   ai: "الذكاء الاصطناعي (AI)",
   web: "تطوير الويب",
+  data_analysis: "تحليل البيانات (Data Analysis)",
   help_me_choose: "ساعدوني أختار المناسب",
 };
 

@@ -10,7 +10,7 @@ create table if not exists public.trial_bookings (
   parent_whatsapp text not null check (parent_whatsapp ~ '^\+[1-9][0-9]{7,14}$'),
   student_age integer not null check (student_age between 6 and 18),
   experience_level text not null check (experience_level in ('beginner', 'some_experience', 'experienced')),
-  learning_path text not null check (learning_path in ('scratch', 'python', 'ai', 'web', 'help_me_choose')),
+  learning_path text not null check (learning_path in ('scratch', 'python', 'ai', 'web', 'data_analysis', 'help_me_choose')),
   preferred_day text check (preferred_day is null or char_length(preferred_day) <= 60),
   preferred_time text check (preferred_time is null or char_length(preferred_time) <= 60),
   parent_notes text check (parent_notes is null or char_length(parent_notes) <= 1000),
@@ -101,7 +101,7 @@ begin
     raise exception 'Invalid booking data' using errcode = '22023';
   end if;
 
-  if p_learning_path is null or p_learning_path not in ('scratch', 'python', 'ai', 'web', 'help_me_choose') then
+  if p_learning_path is null or p_learning_path not in ('scratch', 'python', 'ai', 'web', 'data_analysis', 'help_me_choose') then
     raise exception 'Invalid booking data' using errcode = '22023';
   end if;
 
